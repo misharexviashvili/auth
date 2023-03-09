@@ -1,13 +1,13 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StatusBar } from "expo-status-bar";
-
 import LoginScreen from "./screens/LoginScreen";
 import SignupScreen from "./screens/SignupScreen";
 import WelcomeScreen from "./screens/WelcomeScreen";
 import { Colors } from "./constants/styles";
 import AuthContextProvider, { AuthContext } from "./store/auth-context";
 import { useContext } from "react";
+import IconButton from "./componenets/ui/IconButton";
 
 const Stack = createNativeStackNavigator();
 
@@ -27,6 +27,7 @@ function AuthStack() {
 }
 
 function AuthenticatedStack() {
+  const authCtx = useContext(AuthContext);
   return (
     <Stack.Navigator
       screenOptions={{
@@ -35,7 +36,20 @@ function AuthenticatedStack() {
         contentStyle: { backgroundColor: Colors.primary100 },
       }}
     >
-      <Stack.Screen name="Welcome" component={WelcomeScreen} />
+      <Stack.Screen
+        name="Welcome"
+        component={WelcomeScreen}
+        options={{
+          headerRight: ({ tintColor }) => (
+            <IconButton
+              icon="exit"
+              color={tintColor}
+              size={24}
+              onPress={authCtx.logout}
+            />
+          ),
+        }}
+      />
     </Stack.Navigator>
   );
 }
