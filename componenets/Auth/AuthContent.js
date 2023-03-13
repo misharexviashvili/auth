@@ -8,6 +8,7 @@ import { useNavigation } from "@react-navigation/native";
 
 function AuthContent({ isLogin, onAuthenticate }) {
   const navigation = useNavigation();
+
   const [credentialsInvalid, setCredentialsInvalid] = useState({
     email: false,
     password: false,
@@ -17,10 +18,9 @@ function AuthContent({ isLogin, onAuthenticate }) {
 
   function switchAuthModeHandler() {
     if (isLogin) {
-      //  replace is almost same as navigate, but it does not give back button
-      navigation.replace('Signup') 
-    }else{
-      navigation.replace('Login')
+      navigation.replace("Signup");
+    } else {
+      navigation.replace("Login");
     }
   }
 
